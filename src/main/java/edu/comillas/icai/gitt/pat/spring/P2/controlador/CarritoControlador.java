@@ -24,11 +24,16 @@ public class CarritoControlador {
         return carritoNuevo;
     }
 
-//    @GetMapping("/api/carritos")
-//    public Carrito getCarrito(@PathVariable int idCarrito) {
-//
-//    }
-//
+    @GetMapping("/api/carritos/{idCarrito}")
+    public Carrito getCarrito(@PathVariable int idCarrito) {
+        return carritos.get(idCarrito);
+    }
+
+    @DeleteMapping("/api/carritos/{idCarrito}")
+    public void borraCarrito(@PathVariable int idCarrito) {
+        carritos.remove(idCarrito);
+    }
+
 //    @PutMapping("/api/contadores/{nombre}/incremento/{incremento}")
 //    public Carrito incrementa(@PathVariable String nombre,
 //                                     @PathVariable Integer incremento) {
