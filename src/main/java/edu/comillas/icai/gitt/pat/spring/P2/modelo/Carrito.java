@@ -7,12 +7,12 @@ public class Carrito {
     private int unidades;
     private double precioFinal;
 
-    public Carrito(double precioFinal, int unidades, String descripcion, int idCarrito, int idArticulo) {
-        this.precioFinal = precioFinal;
-        this.unidades = unidades;
-        this.descripcion = descripcion;
+    public Carrito(int idCarrito, int idArticulo, String descripcion, int unidades, double precioFinal) {
         this.idCarrito = idCarrito;
         this.idArticulo = idArticulo;
+        this.descripcion = descripcion;
+        this.unidades = unidades;
+        this.precioFinal = precioFinal;
     }
 
     public int getIdCarrito() {
