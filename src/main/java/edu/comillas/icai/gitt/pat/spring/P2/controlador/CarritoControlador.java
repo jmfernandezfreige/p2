@@ -4,6 +4,7 @@ import edu.comillas.icai.gitt.pat.spring.P2.modelo.Carrito;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,11 +39,15 @@ public class CarritoControlador {
     @PutMapping("/api/carritos/{idCarrito}")
     public Carrito modificaCarrito(@PathVariable int idCarrito,
                                    @Valid @RequestBody Carrito carrito) {
-        if (carrito.getIdCarrito() != idCarrito){
-
+        if (carrito.getIdCarrito() != idCarrito) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "El ID del carrito nuevo debe coincidir con el de la URL"
+            );
         }
+
         carritos.put(idCarrito, carrito);
         return carrito;
+    }
 
 //        Carrito carritoExistente = carritos.get(idCarrito);
 //
@@ -64,5 +69,4 @@ public class CarritoControlador {
 //
 //        return carrito;
     }
-}
 
