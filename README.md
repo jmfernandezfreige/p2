@@ -67,3 +67,4 @@ Para verificar el correcto funcionamiento de la API REST, se han realizado prueb
 * **GET (Individual):** Consultar el carrito por su ID específico para validar que los cambios del PUT se han guardado.
 
 * **DELETE:** Eliminar el carrito y verificar posteriormente que ya no se encuentra en la lista de recursos.
+ ![Prueba del petición DELETE sobre la API Carritos](src/main/resources/Prueba_DELETE_Carrito.png)
