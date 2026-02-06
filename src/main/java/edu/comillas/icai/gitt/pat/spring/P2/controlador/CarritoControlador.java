@@ -37,7 +37,24 @@ public class CarritoControlador {
     @PutMapping("/api/carritos/{idCarrito}")
     public Carrito modificaCarrito(@PathVariable int idCarrito,
                                    @RequestBody Carrito carrito) {
-        carritos.put(idCarrito, carrito);
+        Carrito carritoExistente = carritos.get(idCarrito);
+
+        if (carrito.getDescripcion() != null) {
+            carritoExistente.setDescripcion(carrito.getDescripcion());
+        }
+
+        if (carrito.getUnidades() > 0) {
+            carritoExistente.setUnidades(carrito.getUnidades());
+        }
+
+        if (carrito.getPrecioFinal() > 0) {
+            carritoExistente.setPrecioFinal(carrito.getPrecioFinal());
+        }
+
+        if (carrito.getIdArticulo() > 0) {
+            carritoExistente.setIdCarrito(carrito.getIdArticulo());
+        }
+
         return carrito;
     }
 }
