@@ -24,7 +24,8 @@ Una vez se ha generado el proyecto, se define como un repositorio de Git en el q
 
 
 ### Creación del Modelo 
-Para representar la información de los carritos en el sistema, se ha definido la clase Carrito dentro del paquete modelo. Esta clase actúa como un objeto simple de transferencia de datos (POJO) que encapsula las propiedades fundamentales del recurso.
+Para representar la información de los carritos en el sistema, se ha definido la clase Carrito dentro del paquete modelo. Esta clase actúa como un objeto simple de transferencia de datos con las propiedades fundamentales del recurso.
+Como simplificación a la práctica indicada en el enunciado: **cada carrito solo puede contener un único producto** (no existe lista de líneas).
 
 Los atributos definidos son:
 * **idCarrito** (Identificador único del carrito).
