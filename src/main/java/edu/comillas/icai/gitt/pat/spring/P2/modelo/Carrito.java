@@ -1,10 +1,25 @@
 package edu.comillas.icai.gitt.pat.spring.P2.modelo;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
+@Valid
 public class Carrito {
+    @Positive(message = "El ID de carrito debe ser mayor que 0")
     private int idCarrito;
+
+    @Positive(message = "El ID de artículo debe ser mayor que 0")
     private int idArticulo;
+
+    @NotBlank(message = "La descripción no puede estar vacía")
     private String descripcion;
+
+    @Min(value = 1, message = "Debe haber al menos 1 unidad")
     private int unidades;
+
+    @Positive(message = "El precio debe ser mayor que 0")
     private double precioFinal;
 
     public Carrito(int idCarrito, int idArticulo, String descripcion, int unidades, double precioFinal) {

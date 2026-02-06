@@ -1,6 +1,7 @@
 package edu.comillas.icai.gitt.pat.spring.P2.controlador;
 
 import edu.comillas.icai.gitt.pat.spring.P2.modelo.Carrito;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class CarritoControlador {
 
     @PostMapping("/api/carritos")
     @ResponseStatus(HttpStatus.CREATED)
-    public Carrito creaCarritos(@RequestBody Carrito carritoNuevo) {
+    public Carrito creaCarritos(@Valid @RequestBody Carrito carritoNuevo) {
         carritos.put(carritoNuevo.getIdCarrito(), carritoNuevo);
         return carritoNuevo;
     }
@@ -36,26 +37,32 @@ public class CarritoControlador {
 
     @PutMapping("/api/carritos/{idCarrito}")
     public Carrito modificaCarrito(@PathVariable int idCarrito,
-                                   @RequestBody Carrito carrito) {
-        Carrito carritoExistente = carritos.get(idCarrito);
+                                   @Valid @RequestBody Carrito carrito) {
+        if (carrito.getIdCarrito() != idCarrito){
 
-        if (carrito.getDescripcion() != null) {
-            carritoExistente.setDescripcion(carrito.getDescripcion());
         }
-
-        if (carrito.getUnidades() > 0) {
-            carritoExistente.setUnidades(carrito.getUnidades());
-        }
-
-        if (carrito.getPrecioFinal() > 0) {
-            carritoExistente.setPrecioFinal(carrito.getPrecioFinal());
-        }
-
-        if (carrito.getIdArticulo() > 0) {
-            carritoExistente.setIdCarrito(carrito.getIdArticulo());
-        }
-
+        carritos.put(idCarrito, carrito);
         return carrito;
+
+//        Carrito carritoExistente = carritos.get(idCarrito);
+//
+//        if (carrito.getDescripcion() != null) {
+//            carritoExistente.setDescripcion(carrito.getDescripcion());
+//        }
+//
+//        if (carrito.getUnidades() > 0) {
+//            carritoExistente.setUnidades(carrito.getUnidades());
+//        }
+//
+//        if (carrito.getPrecioFinal() > 0) {
+//            carritoExistente.setPrecioFinal(carrito.getPrecioFinal());
+//        }
+//
+//        if (carrito.getIdArticulo() > 0) {
+//            carritoExistente.setIdCarrito(carrito.getIdArticulo());
+//        }
+//
+//        return carrito;
     }
 }
 
