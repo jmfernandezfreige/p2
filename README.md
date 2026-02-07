@@ -40,6 +40,14 @@ Los atributos definidos son:
 
 Además, se han generado el constructor completo y los métodos Getters y Setters para permitir el acceso y modificación de estos datos desde el controlador.
 
+**Introducción de Validaciones:**
+
+Para mejorar la lógica de la API se han implementado validaciones en los atributos de la clase Carrito de manera que:
+* Los ID de carrito y de artículo deben ser mayores que 0.
+* La descripción del carrito no puede estar vacía.
+* Las unidades de un producto deben ser como mínimo 1.
+* El precio debe ser mayor que 0.  
+
 ### Creación del Controlador y los Endpoints
 La lógica de negocio y la gestión de las peticiones HTTP se han centralizado en la clase CarritoControlador.
 
@@ -49,22 +57,34 @@ Persistencia de Datos: Dado que no se utiliza una base de datos externa en esta 
 
 **Mapeo de Peticiones:**
 
-Se han utilizado las anotaciones @GetMapping, @PostMapping, @PutMapping y @DeleteMapping para vincular las rutas URL con los métodos Java correspondientes.
+Se han utilizado las anotaciones **@GetMapping, @PostMapping, @PutMapping y @DeleteMapping** para vincular las rutas URL con los métodos Java correspondientes.
 
-Para la lectura de datos enviados por el cliente, se utiliza @RequestBody (para convertir el JSON recibido en un objeto Carrito) y @PathVariable (para capturar el idCarrito directamente de la URL).
+Para la lectura de datos enviados por el cliente, se utiliza **@RequestBody** (para convertir el JSON recibido en un objeto Carrito) y **@PathVariable** (para capturar el idCarrito directamente de la URL). En el caso del @RequestBody se emplea la anotación **@Valid**, para hacer las validaciones que se han establecido sobre un objeto de tipo Carrito. 
 
-En el caso de la creación, se ha especificado el código de estado HTTP correcto mediante @ResponseStatus(HttpStatus.CREATED).
+**Errores y códigos de estado HTTP:**
+
+Se ha hecho uso tanto de los códigos de estado con la anotación **@ResponseStatus** y de Excecpiones en la respuesta a una petición. En concreto, se ha implementado:
+
+* En el caso de la creación, se ha especificado el código de estado HTTP correcto mediante @ResponseStatus(HttpStatus.CREATED).
+* En las peticiones GET (individual), DELETE y PUT se ha comprobado que el "idCarrito" recibido existe en el Mapa de carritos y si no es así, se ha especificado el código de estado de HTTP correspondiente a "NOT_FOUND".
+* En las peticiones PUT se ha implementado la comprobación de que el "idCarrito" no cambia al modificar el carrito respondiendo con un error "BAD_REQUEST" en caso de incumplimiento. 
+
+
 
 ### Pruebas realizadas
 Para verificar el correcto funcionamiento de la API REST, se han realizado pruebas funcionales simulando un cliente HTTP (utilizando herramientas como Postman o cURL). El flujo de pruebas ha consistido en:
 
 * **POST:** Enviar una petición para crear un nuevo carrito con un JSON válido. Se verifica que devuelve el objeto creado y el código 201.
+![Prueba del petición POST sobre la API Carritos](src/main/resources/Prueba_POST_Carritos.png)
 
-* **GET (Lista):** Solicitar la lista completa para confirmar que el carrito creado anteriormente aparece en la respuesta.
+* **GET (Lista):** Solicitar la lista completa para confirmar que el carrito creado anteriormente aparece en la respuesta
+![Prueba del petición GET (todos los carritos) sobre la API Carritos](src/main/resources/Prueba_GET_Carritos.png)
 
 * **PUT:** Modificar el número de unidades o descripción del carrito existente mediante su ID.
+![Prueba de la petición DELETE sobre la API Carritos](src/main/resources/Prueba_PUT_Carrito.png)
 
 * **GET (Individual):** Consultar el carrito por su ID específico para validar que los cambios del PUT se han guardado.
+ ![Prueba de la petición GET (un carrito especificado) sobre la API Carritos](src/main/resources/Prueba_GET_Carrito.png)
 
 * **DELETE:** Eliminar el carrito y verificar posteriormente que ya no se encuentra en la lista de recursos.
- ![Prueba del petición DELETE sobre la API Carritos](src/main/resources/Prueba_DELETE_Carrito.png)
+ ![Prueba de la petición DELETE sobre la API Carritos](src/main/resources/Prueba_DELETE_Carrito.png)
