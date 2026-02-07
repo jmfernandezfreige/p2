@@ -1,11 +1,9 @@
 package edu.comillas.icai.gitt.pat.spring.P2.modelo;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
-@Valid
 public class Carrito {
     @Positive(message = "El ID de carrito debe ser mayor que 0")
     private int idCarrito;
