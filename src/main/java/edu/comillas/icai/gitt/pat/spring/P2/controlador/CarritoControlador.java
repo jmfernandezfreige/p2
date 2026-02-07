@@ -28,11 +28,18 @@ public class CarritoControlador {
 
     @GetMapping("/api/carritos/{idCarrito}")
     public Carrito getCarrito(@PathVariable int idCarrito) {
-        return carritos.get(idCarrito);
+        Carrito carrito = carritos.get(idCarrito);
+        if (carrito == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Carrito no encontrado");
+        }
+        return carrito;
     }
 
     @DeleteMapping("/api/carritos/{idCarrito}")
     public void borraCarrito(@PathVariable int idCarrito) {
+        if (!carritos.containsKey(idCarrito)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se puede borrar: carrito no encontrado");
+        }
         carritos.remove(idCarrito);
     }
 
@@ -40,9 +47,11 @@ public class CarritoControlador {
     public Carrito modificaCarrito(@PathVariable int idCarrito,
                                    @Valid @RequestBody Carrito carrito) {
         if (carrito.getIdCarrito() != idCarrito) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "El ID del carrito nuevo debe coincidir con el de la URL"
-            );
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID del carrito nuevo debe coincidir con el de la URL");
+        }
+
+        if (!carritos.containsKey(idCarrito)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se puede modificar: carrito no encontrado");
         }
 
         carritos.put(idCarrito, carrito);
